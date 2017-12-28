@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<cache-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns="http://xmlns.oracle.com/coherence/coherence-cache-config"
+              xsi:schemaLocation="http://xmlns.oracle.com/coherence/coherence-cache-config coherence-cache-config.xsd">
+  <caching-scheme-mapping>
+    <cache-mapping>
+      <cache-name>*</cache-name>
+      <scheme-name>TCP-Extend</scheme-name>
+    </cache-mapping>
+  </caching-scheme-mapping>
+  <caching-schemes>
+    <remote-cache-scheme>
+      <scheme-name>TCP-Extend</scheme-name>
+      <service-name>BENCHMARK-ExtendTcpProxyService</service-name>
+      <initiator-config>
+        <tcp-initiator>
+          <remote-addresses>
+            <socket-address>
+              <address>localhost</address>
+              <port>8090</port>
+            </socket-address>
+          </remote-addresses>
+        </tcp-initiator>
+        <outgoing-message-handler>
+          <request-timeout>30s</request-timeout>
+        </outgoing-message-handler>
+        <serializer>
+          <instance>
+            <class-name>com.tangosol.io.pof.ConfigurablePofContext</class-name>
+            <init-params>
+              <init-param>
+                <param-type>string</param-type>
+                <param-value>coherence-pof-config.xml</param-value>
+              </init-param>
+            </init-params>
+          </instance>
+        </serializer>
+      </initiator-config>
+    </remote-cache-scheme>
+  </caching-schemes>
+</cache-config>
