@@ -75,7 +75,7 @@ public class CoherenceClientIntegrationTest {
     int rowCount = 5;
 
     // Insertion
-    for (int i = 0; i < rowCount; i++) {
+    for (int i = 1; i <= rowCount; i++) {
       coherenceClient.insert(TABLE_NAME, "k" + i, Collections.<String, ByteIterator>singletonMap("f1", new StringByteIterator("v" + i)));
     }
 
@@ -83,6 +83,8 @@ public class CoherenceClientIntegrationTest {
     try {
       // Scan
       Status scanStatus = coherenceClient.scan(TABLE_NAME, "k1", rowCount, singleton("f1"), scanResult);
+      System.out.println(scanResult);
+
       assertTrue(scanStatus.isOk());
       assertEquals(scanResult.size(), rowCount);
 
@@ -94,7 +96,7 @@ public class CoherenceClientIntegrationTest {
       assertEquals(scanResult.get(4).get("f1").toString(), "v1");
     } finally {
       // Deleting
-      for (int i = 0; i < rowCount; i++) {
+      for (int i = 1; i <= rowCount; i++) {
         coherenceClient.delete(TABLE_NAME, "k" + i);
       }
     }
